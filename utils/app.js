@@ -1,0 +1,38 @@
+import express from "express"
+import cookieParser from "cookie-parser";
+import cors from "cors"
+const app=express();
+
+
+app.use(cors({
+    origin:process.env.CORS_ORIGIN,
+    credentials:true,
+}))
+
+app.use(express.json({}));
+app.use(express.urlencoded({extended: true}));
+app.use(express.static("public"));
+app.use(cookieParser())
+
+//import routes
+import userRoutes from "../routes/user.routes.js"
+
+//routes declaration
+app.use("/farmers/hub/user",userRoutes);
+
+import mandiTodayRoutes from "../routes/mandi.routes.js";
+
+app.use("/api/mandi", mandiTodayRoutes);
+
+import newsRoutes from "../routes/news.routes.js";
+
+app.use("/api/news", newsRoutes);
+
+
+import weatherRoutes from "../routes/weather.routes.js";
+
+app.use("/api/weather", weatherRoutes);
+
+
+
+export {app};

@@ -5,7 +5,7 @@ const app=express();
 
 
 app.use(cors({
-  origin: 'https://farmers-hub-frontend-code.vercel.app',
+  origin: '*',
   methods: ['GET','POST','PUT','DELETE'],
   credentials: true
 }));

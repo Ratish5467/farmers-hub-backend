@@ -27,6 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(cookieParser());
 
+app.use((req, res, next) => {
+  if (req.path === '/login') {
+    // preserve any extra path/query after /login
+    req.url = '/farmers/hub/user/login' + (req.url.slice(req.path.length) || '');
+  }
+  next();
+});
+
 // import routes
 import userRoutes from "../routes/user.routes.js";
 

@@ -28,10 +28,16 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
+  // Forward /login
   if (req.path === '/login') {
-    // preserve any extra path/query after /login
     req.url = '/farmers/hub/user/login' + (req.url.slice(req.path.length) || '');
   }
+
+  // Forward /register
+  if (req.path === '/register') {
+    req.url = '/farmers/hub/user/register' + (req.url.slice(req.path.length) || '');
+  }
+
   next();
 });
 
